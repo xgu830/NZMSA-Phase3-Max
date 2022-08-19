@@ -18,9 +18,8 @@ const GameGridRow = ({width, height, tiles}: GameGridRowProp) => {
             tileArray.push(<Grid item 
                 key={`GridTile${height} ${i}`} md={tileWidth} 
                 justifyContent={"space-evenly"} alignItems={"stretch"}>
-                <Tile currentValue={tiles[i].value}></Tile>
-            </Grid>)
-            
+                <Tile currentValue={tiles[i].value} />
+            </Grid>);
         }
 
         return tileArray; 

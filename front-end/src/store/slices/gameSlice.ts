@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import * as GameServices from '../../services/gameLogicServices';
+import { RootState } from "../rootStore";
 
 export interface TileInfo{
     value: number
@@ -29,12 +31,34 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
-        newGame: (state) => {
-            state.gameState = initialState.gameState;
+        startGame: (state) => {
+            let startState = GameServices.copyGameState(initialState.gameState);
+
+            let x1 = Math.floor(Math.random() * 4);
+            let x2 = Math.floor(Math.random() * 4);
+            let y1 = Math.floor(Math.random() * 4);
+            let y2 = Math.floor(Math.random() * 4);
+
+            if (x1 === x2 && y1 === y2) {
+                if (x1 === 0 && y1 === 0) {
+                    x2 = Math.floor(Math.random() * 3 + 1);
+                    y2 = Math.floor(Math.random() * 3 + 1);
+                } else {
+                    x2 = Math.floor(Math.random() * x1);
+                    y2 = Math.floor(Math.random() * y1);
+                }
+            }
+
+            startState[x1][y1] = {value: 1};
+            startState[x2][y2] = {value: 1};
+
+            state.gameState = startState;
         }
     }
 })
 
-export const {newGame} = gameSlice.actions; 
+export const {startGame} = gameSlice.actions; 
+
+export const selectState = (state: RootState) => state.game.gameState;
 
 export default gameSlice.reducer;

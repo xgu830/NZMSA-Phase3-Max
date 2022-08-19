@@ -15,12 +15,13 @@ const GameGrid = ({width, height, gameState}: GameGridProp) => {
 
         for (let i = 0; i < height; i++) {
             gridArray.push(<GameGridRow key={`GameGridRow${i}`}
-                width={width} height={height} tiles={gameState[i]} />)
+                width={width} height={height} tiles={gameState[i]} />);
         }
-
-        return gridArray
+        
+        return gridArray;
     }
 
+    console.log(drawGrid().map(row => row));
     return <Grid container spacing={2} justifyContent={"space-evenly"} alignContent={"space-evenly"}
         sx={{backgroundColor: "#eaeaff", pr: 2, pb: 2, borderRadius: 4}}>
             {drawGrid().map(row => row)}
