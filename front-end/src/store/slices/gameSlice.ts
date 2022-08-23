@@ -53,6 +53,9 @@ export const gameSlice = createSlice({
             startState[x2][y2] = {value: 1};
 
             state.gameState = startState;
+        },
+        moveUp: (state) => {
+
         }
     }
 })
