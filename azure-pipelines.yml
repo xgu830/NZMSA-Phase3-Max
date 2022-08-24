@@ -30,14 +30,14 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory.front-end)'
+    sourceFolder: '$(Build.SourcesDirectory)/front-end'
     contents: '*.tgz' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy npm package'
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory.front-end)'
+    sourceFolder: '$(Build.SourcesDirectory)/front-end'
     contents: 'package.json' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package.json'   
