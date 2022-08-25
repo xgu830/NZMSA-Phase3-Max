@@ -54,13 +54,20 @@ export const gameSlice = createSlice({
 
             state.gameState = startState;
         },
-        moveUp: (state) => {
+        moveLeft: (state) => {
+            let newState = GameServices.movingLeft(state.gameState);
 
+            state.gameState = newState;
+        },
+        moveRight: (state) => {
+            let newState = GameServices.movingRight(state.gameState);
+
+            state.gameState = newState;
         }
     }
 })
 
-export const {startGame} = gameSlice.actions; 
+export const {startGame, moveLeft, moveRight} = gameSlice.actions; 
 
 export const selectState = (state: RootState) => state.game.gameState;
 
