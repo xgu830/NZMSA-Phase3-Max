@@ -24,6 +24,26 @@ export const movingRight = (arr: TileInfo[][]): TileInfo[][] => {
     return arr;
 }
 
+export const movingUp = (arr: TileInfo[][]): TileInfo[][] => {
+    let newState = moveTilesToTop(arr);
+
+    if (hasTileMoved(arr, newState)) {
+        return generateNewTile(newState);
+    }
+
+    return arr;
+}
+
+export const movingDown = (arr: TileInfo[][]): TileInfo[][] => {
+    let newState = moveTilesToBottom(arr);
+
+    if (hasTileMoved(arr, newState)) {
+        return generateNewTile(newState);
+    }
+
+    return arr;
+}
+
 function hasTileMoved(originalState: TileInfo[][], newState: TileInfo[][]): boolean {
     for (let i = 0; i < originalState.length; i++) {
         for (let j = 0; j < originalState[i].length; j++) {
@@ -77,6 +97,14 @@ function moveTilesToRight(arr: TileInfo[][]): TileInfo[][] {
     })
 }
 
+function moveTilesToTop(arr: TileInfo[][]): TileInfo[][] {
+    return rotateStateToRight(moveTilesToLeft(rotateStateToLeft(arr)));
+}
+
+function moveTilesToBottom(arr: TileInfo[][]): TileInfo[][] {
+    return rotateStateToRight(moveTilesToRight(rotateStateToLeft(arr)));
+}
+
 function mergeTileToLeft(row: TileInfo[]): TileInfo[] {
     let newRow = [];
 
@@ -117,4 +145,36 @@ function mergeTileToRight(row: TileInfo[]): TileInfo[] {
     }
 
     return newRow;
+}
+
+function rotateStateToLeft(arr: TileInfo[][]): TileInfo[][] {
+    let newState: TileInfo[][] = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        newState.push([]);
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            newState[arr.length-j-1].push(arr[i][j]); 
+        }
+    }
+
+    return newState;
+}
+
+function rotateStateToRight(arr: TileInfo[][]): TileInfo[][] {
+    let newState: TileInfo[][] = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        newState.push([]);
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            newState[j].unshift(arr[i][j]);
+        }
+    }
+
+    return newState;
 }
