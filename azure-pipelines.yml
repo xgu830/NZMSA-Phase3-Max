@@ -20,7 +20,6 @@ variables:
   azureSubscription: 'Azure subscription 1'
   appName: 'msa-phase3-front'
   containerRegistry: 'msaphase3frontend.azurecr.io'
-  dockerRegistryServiceConnection: 'c620dbdc-09bb-4c50-84d7-b235562708c2'
   imageRepository: 'frontenddocker'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
