@@ -22,7 +22,7 @@ variables:
   containerRegistry: 'msaphase3frontend.azurecr.io'
   dockerRegistryServiceConnection: 'c620dbdc-09bb-4c50-84d7-b235562708c2'
   imageRepository: 'frontenddocker'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/front-end/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
