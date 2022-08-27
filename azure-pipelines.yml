@@ -17,7 +17,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  azureSubscription: 'Azure subscription 1'
+  azureSubscription: 'msa-phase3-front'
   appName: 'msa-phase3-front'
   containerRegistry: 'msaphase3frontend.azurecr.io'
   dockerRegistryServiceConnection: 'c620dbdc-09bb-4c50-84d7-b235562708c2'
