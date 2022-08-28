@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:14-alpine
+FROM node:16-alpine as build
 
 ENV NODE_ENV=production
 
@@ -12,6 +12,10 @@ RUN npm install --production
 
 COPY . .
 
-EXPOSE 80:80
+RUN npm run build
 
-CMD ["npm", "start"]
+FROM nginx:stable-alpine
+COPY --from=build /front-end/build /user/share/nginx/html
+EXPOSE 80
+
+CMD ["nginx","-g", "daemon off;"]
