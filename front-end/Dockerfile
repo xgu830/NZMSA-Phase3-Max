@@ -1,21 +1,12 @@
-# syntax=docker/dockerfile:1
-
 FROM node:16-alpine as build
-
-ENV NODE_ENV=production
-
-WORKDIR /front-end
-
-COPY ["package.json", "package-lock.json*", "./"]
-
-RUN npm install --production
-
-COPY . .
-
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package*.json ./
+RUN npm install
+COPY . ./
 RUN npm run build
 
 FROM nginx:stable-alpine
-COPY --from=build /front-end/build /user/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
-
-CMD ["nginx","-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
