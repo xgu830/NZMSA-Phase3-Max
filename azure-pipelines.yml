@@ -17,7 +17,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-
+  azureSubscription: 'msa-phase3'
+  appName: 'msa-phase3-frontend'
   containerRegistry: 'msaphase3frontend.azurecr.io'
   dockerRegistryServiceConnection: 'c620dbdc-09bb-4c50-84d7-b235562708c2'
   imageRepository: 'frontenddocker'
@@ -45,3 +46,10 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          
+    - task: AzureWebAppContainer@1
+      displayName: 'Azure Web App on Container Deploy'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        appName: $(appName)
+        imageName: $(containerRegistry)/$(imageRepository):$(tag)
