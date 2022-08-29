@@ -44,6 +44,43 @@ export const movingDown = (arr: TileInfo[][]): TileInfo[][] => {
     return arr;
 }
 
+export const calculateScore = (arr: TileInfo[][]): number => {
+    let score = 0;
+    
+    arr.forEach(row => row.forEach(tile => {
+        if (tile.value > 0) {
+            score += Math.pow(2, tile.value);
+        }
+    }));
+
+    return score;
+}
+
+export const isGameOver = (arr: TileInfo[][]): boolean => {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length - 1; j++) {
+            if (arr[i][j].value === 0) {
+                return false
+            };
+            if (arr[i][j].value === arr[i][j+1].value) {
+                return false
+            };
+        }
+    }
+
+    const rotateState = rotateStateToLeft(arr);
+    for (let i = 0; i < rotateState.length; i++) {
+        for (let j = 0; j < rotateState[i].length - 1; j++) {
+            if (rotateState[i][j].value === rotateState[i][j+1].value) {
+                return false
+            };
+        }
+    }
+
+    console.log("gameover");
+    return true;
+}
+
 function hasTileMoved(originalState: TileInfo[][], newState: TileInfo[][]): boolean {
     for (let i = 0; i < originalState.length; i++) {
         for (let j = 0; j < originalState[i].length; j++) {
@@ -178,3 +215,4 @@ function rotateStateToRight(arr: TileInfo[][]): TileInfo[][] {
 
     return newState;
 }
+

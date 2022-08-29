@@ -22,7 +22,7 @@ const Tile = ({currentValue} : TileProps) : JSX.Element => {
     return <div style={{display: 'grid', placeContent: 'center', 
         aspectRatio: '1', borderRadius: 4, backgroundColor: colors[currentValue]}}>
         {currentValue > 0 ? 
-            <p style={{fontSize:"5rem", fontWeight: 700, color: "#bebebe", margin: 0}}>
+            <p style={{fontSize:"4rem", fontWeight: 700, color: "#bebebe", margin: 0}}>
                 {Math.pow(2, currentValue)}
             </p> 
             : 

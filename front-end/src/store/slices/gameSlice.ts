@@ -52,26 +52,35 @@ export const gameSlice = createSlice({
             startState[x1][y1] = {value: 1};
             startState[x2][y2] = {value: 1};
 
+            state.score = 0;
             state.gameState = startState;
         },
         moveLeft: (state) => {
             let newState = GameServices.movingLeft(state.gameState);
 
+            state.score = GameServices.calculateScore(newState);
+            state.isOver = GameServices.isGameOver(newState);
             state.gameState = newState;
         },
         moveRight: (state) => {
             let newState = GameServices.movingRight(state.gameState);
 
+            state.score = GameServices.calculateScore(newState);
+            state.isOver = GameServices.isGameOver(newState);
             state.gameState = newState;
         },
         moveUp: (state) => {
             let newState = GameServices.movingUp(state.gameState);
 
+            state.score = GameServices.calculateScore(newState);
+            state.isOver = GameServices.isGameOver(newState);
             state.gameState = newState;
         },
         moveDown: (state) => {
             let newState = GameServices.movingDown(state.gameState);
 
+            state.score = GameServices.calculateScore(newState);
+            state.isOver = GameServices.isGameOver(newState);
             state.gameState = newState;
         }
     }
@@ -80,5 +89,7 @@ export const gameSlice = createSlice({
 export const {startGame, moveLeft, moveRight, moveUp, moveDown} = gameSlice.actions; 
 
 export const selectState = (state: RootState) => state.game.gameState;
+export const selectScore = (state: RootState) => state.game.score;
+export const selectIsOver = (state: RootState) => state.game.isOver;
 
 export default gameSlice.reducer;
