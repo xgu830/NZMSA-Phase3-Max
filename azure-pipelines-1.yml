@@ -39,7 +39,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - task: DockerCompose@0
-      displayName: Build and push an image to container registry
+      displayName: Build services
       inputs: 
         action: Build services
         azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
@@ -47,7 +47,7 @@ stages:
         dockerComposeFile: $(dockerComposefilePath)
         projectName: $(Build.Repository.Name)
         qualifyImageNames: true
-        additionalImageTags: $(Build.BuildId)
+
     - task: DockerCompose@0
       displayName: Push services
       inputs:
@@ -57,7 +57,19 @@ stages:
         dockerComposeFile: $(dockerComposefilePath)
         projectName: $(Build.Repository.Name)
         qualifyImageNames: true
-        additionalImageTags: $(Build.BuildId)
+
+    - task: DockerCompose@0
+      displayName: Run services
+      inputs:
+        action: Run services
+        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerComposeFile: $(dockerComposefilePath)
+        projectName: $(Build.Repository.Name)
+        qualifyImageNames: true
+        buildImages: true
+        abortOnContainerExit: true
+        detached: false
 
     - task: AzureWebAppContainer@1
       displayName: 'Azure Web App on Container Deploy'
