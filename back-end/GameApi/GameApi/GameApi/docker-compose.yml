@@ -1,16 +1,14 @@
 version: "3.9"
 services:
+  game-api:
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - ms-sql-server
+
   ms-sql-server:
     image: mcr.microsoft.com/mssql/server
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "Fe2048BeA"
-      MSSQL_PID: Express
-    ports:
-      - "1433:1433"
-  game-api:
-    build: .
-    ports:
-      - "80:80"
-    depends_on:
-      - ms-sql-server
