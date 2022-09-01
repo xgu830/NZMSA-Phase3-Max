@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameApi.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20220822225717_Initial")]
+    [Migration("20220831234605_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,6 @@ namespace GameApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Score")
@@ -44,15 +43,33 @@ namespace GameApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("53cca2b6-fa02-4b45-915b-454bc665bf2e"),
+                            Id = new Guid("b497de8e-3af8-459c-8f1f-8bea386262b4"),
                             Name = "Ooowl",
                             Score = 2048
                         },
                         new
                         {
-                            Id = new Guid("ca1116f9-bc3f-4498-99ee-029da2eb39c8"),
+                            Id = new Guid("be63c866-e75f-45c1-baac-800eee5c4f7b"),
                             Name = "CoolGuy",
                             Score = 1024
+                        },
+                        new
+                        {
+                            Id = new Guid("de6192bc-0d38-4be6-9b39-c919dbb81b67"),
+                            Name = "Toad",
+                            Score = 4096
+                        },
+                        new
+                        {
+                            Id = new Guid("aba5f758-35db-4146-a055-5470f57731ac"),
+                            Name = "PrincessPeach",
+                            Score = 3016
+                        },
+                        new
+                        {
+                            Id = new Guid("ef298108-7856-43f9-84e3-aad6d061504d"),
+                            Name = "Mario",
+                            Score = 1048
                         });
                 });
 #pragma warning restore 612, 618

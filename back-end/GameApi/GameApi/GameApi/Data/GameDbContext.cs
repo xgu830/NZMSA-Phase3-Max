@@ -13,7 +13,7 @@ namespace GameApi.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var ids = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
+            var ids = new Guid[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
 
             builder.ApplyConfiguration(new LeaderboardContextConfiguration(ids));
         }

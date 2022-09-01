@@ -14,7 +14,7 @@ namespace GameApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Score = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -25,12 +25,14 @@ namespace GameApi.Migrations
             migrationBuilder.InsertData(
                 table: "Leaderboard",
                 columns: new[] { "Id", "Name", "Score" },
-                values: new object[] { new Guid("53cca2b6-fa02-4b45-915b-454bc665bf2e"), "Ooowl", 2048 });
-
-            migrationBuilder.InsertData(
-                table: "Leaderboard",
-                columns: new[] { "Id", "Name", "Score" },
-                values: new object[] { new Guid("ca1116f9-bc3f-4498-99ee-029da2eb39c8"), "CoolGuy", 1024 });
+                values: new object[,]
+                {
+                    { new Guid("aba5f758-35db-4146-a055-5470f57731ac"), "PrincessPeach", 3016 },
+                    { new Guid("b497de8e-3af8-459c-8f1f-8bea386262b4"), "Ooowl", 2048 },
+                    { new Guid("be63c866-e75f-45c1-baac-800eee5c4f7b"), "CoolGuy", 1024 },
+                    { new Guid("de6192bc-0d38-4be6-9b39-c919dbb81b67"), "Toad", 4096 },
+                    { new Guid("ef298108-7856-43f9-84e3-aad6d061504d"), "Mario", 1048 }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

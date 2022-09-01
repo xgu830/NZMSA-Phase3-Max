@@ -4,7 +4,10 @@ namespace GameApi.Data
 {
     public class Query
     {
-        public IQueryable<Leaderboard> GetLeaderboards =>
-            new List<Leaderboard>().AsQueryable();
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Leaderboard> GetLeaderboards([Service] GameDbContext context) =>
+            context.Leaderboard;
     }
 }

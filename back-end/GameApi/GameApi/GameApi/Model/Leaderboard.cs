@@ -8,8 +8,8 @@ namespace GameApi.Model
         [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
+
         public int Score { get; set; }
     }
 }

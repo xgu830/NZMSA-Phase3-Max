@@ -4,7 +4,13 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './store/rootStore';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
+
+const client = new ApolloClient({
+  uri: 'https://localhost:7028/graphql',
+  cache: new InMemoryCache()
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +18,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>
 );

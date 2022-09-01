@@ -26,6 +26,24 @@ namespace GameApi.Data.ContextConfigurations
                     Id = _ids[1],
                     Name = "CoolGuy",
                     Score = 1024
+                },
+                new Leaderboard
+                {
+                    Id = _ids[2],
+                    Name = "Toad",
+                    Score = 4096
+                },
+                new Leaderboard
+                {
+                    Id = _ids[3],
+                    Name = "PrincessPeach",
+                    Score = 3016
+                },
+                new Leaderboard
+                {
+                    Id = _ids[4],
+                    Name = "Mario",
+                    Score = 1048
                 });
         }
     }

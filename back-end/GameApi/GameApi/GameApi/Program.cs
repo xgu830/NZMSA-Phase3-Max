@@ -3,18 +3,30 @@ using GameApi.Data;
 using GameApi.Interfaces;
 using GameApi.Repositories;
 
+var MyAllowedSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
-// Add services to the container.
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: MyAllowedSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                "https://msa-phase3-frontend.azurewebsites.net").AllowAnyHeader();
+        });
+});
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
-builder.Services.AddGraphQLServer().AddQueryType<Query>();
+builder.Services.AddGraphQLServer().AddQueryType<Query>()
+    .AddProjections().AddFiltering().AddSorting();
 
 builder.Services.AddDbContext<GameDbContext>(options =>
 options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
@@ -29,6 +41,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors(MyAllowedSpecificOrigins);
 
 app.UseAuthorization();
 

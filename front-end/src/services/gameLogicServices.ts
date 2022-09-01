@@ -59,7 +59,7 @@ export const calculateScore = (arr: TileInfo[][]): number => {
 export const isGameOver = (arr: TileInfo[][]): boolean => {
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length - 1; j++) {
-            if (arr[i][j].value === 0) {
+            if (arr[i][j].value === 0 || arr[i][j+1].value === 0 ) {
                 return false
             };
             if (arr[i][j].value === arr[i][j+1].value) {
@@ -77,7 +77,6 @@ export const isGameOver = (arr: TileInfo[][]): boolean => {
         }
     }
 
-    console.log("gameover");
     return true;
 }
 
