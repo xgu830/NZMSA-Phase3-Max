@@ -19,6 +19,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'a3ac9f42-2578-400e-86cc-084e4f684894'
   imageRepository: 'xgunzmsaphasemax'
+  azureSubscriptionEndpoint: 'phase3-backend'
   azureContainerRegistry: 'msaphase3backend.azurecr.io'
   dockerComposefilePath: '$(Build.SourcesDirectory)/back-end/GameApi/GameApi/GameApi/docker-compose.yml'
   tag: '$(Build.BuildId)'
@@ -39,7 +40,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs: 
         action: Build services
-        azureSubscriptionEndpoint: $(dockerRegistryServiceConnection)
+        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
         azureContainerRegistry: $(azureContainerRegistry)
         dockerComposeFile: $(dockerComposefilePath)
         projectName: $(Build.Repository.Name)
@@ -49,7 +50,7 @@ stages:
       displayName: Push services
       inputs:
         action: Push services
-        azureSubscriptionEndpoint: $(dockerRegistryServiceConnection)
+        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
         azureContainerRegistry: $(azureContainerRegistry)
         dockerComposeFile: $(dockerComposefilePath)
         projectName: $(Build.Repository.Name)
