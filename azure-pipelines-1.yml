@@ -58,19 +58,6 @@ stages:
         projectName: $(Build.Repository.Name)
         qualifyImageNames: true
 
-    - task: DockerCompose@0
-      displayName: Run services
-      inputs:
-        action: Run services
-        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-        azureContainerRegistry: $(azureContainerRegistry)
-        dockerComposeFile: $(dockerComposefilePath)
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
-        buildImages: true
-        abortOnContainerExit: true
-        detached: false
-
     - task: AzureWebAppContainer@1
       displayName: 'Azure Web App on Container Deploy'
       inputs:
