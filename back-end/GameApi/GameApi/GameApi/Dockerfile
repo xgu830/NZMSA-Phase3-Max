@@ -1,8 +1,14 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0
-COPY . /app
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
-RUN ["dotnet", "restore"]
-RUN ["dotnet", "build"]
-EXPOSE 80/tcp
-RUN chmod +x ./entrypoint.sh
-CMD /bin/bash ./entrypoint.sh
+
+COPY *.csproj ./
+RUN dotnet restore
+
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+EXPOSE 80
+COPY --from=build /app/out .
+ENTRYPOINT ["dotnet", "GameApi.dll"]
