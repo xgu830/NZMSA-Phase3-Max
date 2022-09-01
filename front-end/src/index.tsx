@@ -8,7 +8,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: 'https://localhost:7028/graphql',
+  uri: 'https://msa-phase3-backapi.azurewebsites.net/graphql',
   cache: new InMemoryCache()
 });
 
