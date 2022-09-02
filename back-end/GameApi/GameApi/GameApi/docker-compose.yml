@@ -1,14 +1,17 @@
 version: "3.9"
 services:
+  ms-sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Fe2048BeA"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+
   game-api:
     build: .
     ports:
       - "80:80"
     depends_on:
       - ms-sql-server
-
-  ms-sql-server:
-    image: mcr.microsoft.com/mssql/server
-    environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Fe2048BeA"
