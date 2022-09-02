@@ -11,6 +11,8 @@ services:
 
   game-api:
     build: .
+    environment:
+      - ConnectionString=Server=ms-sql-server;Database=GameApi;USER ID=sa;Password=Fe2048BeA;
     ports:
       - "80:80"
     depends_on:
