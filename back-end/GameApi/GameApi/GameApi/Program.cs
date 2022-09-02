@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using GameApi.Data;
 using GameApi.Interfaces;
 using GameApi.Repositories;
+using GameApi.Schema;
 
 var MyAllowedSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -21,12 +22,12 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<GameDbContext>(context => 
-    context.UseInMemoryDatabase("LeaderBoards"));
+    context.UseInMemoryDatabase("LeaderBoard"));
 
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
-builder.Services.AddGraphQLServer().AddQueryType<Query>()
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddMutationType<Mutation>()
     .AddProjections().AddFiltering().AddSorting();
 
 var app = builder.Build();
@@ -39,12 +40,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseCors(MyAllowedSpecificOrigins);
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGraphQL("/graphql");
+app.MapGraphQL();
 
 app.Run();

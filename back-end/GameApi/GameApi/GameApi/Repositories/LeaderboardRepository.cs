@@ -1,6 +1,6 @@
 ﻿using GameApi.Interfaces;
 using GameApi.Data;
-using GameApi.Model;
+using GameApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameApi.Repositories
@@ -15,9 +15,17 @@ namespace GameApi.Repositories
             gameDbContext.Database.EnsureCreated();
         }
 
-        public List<Leaderboard> GetLeaderboardAsync()
+        public async Task<IEnumerable<LeaderboardItem>> GetAll()
         {
-            return gameDbContext.Leaderboards.ToList();
+            return await gameDbContext.Leaderboard.ToListAsync();
+        }
+
+        public async Task<LeaderboardItem> Create(LeaderboardItem boardItem)
+        {
+            gameDbContext.Leaderboard.Add(boardItem);
+            await gameDbContext.SaveChangesAsync();
+
+            return boardItem;
         }
     }
 }

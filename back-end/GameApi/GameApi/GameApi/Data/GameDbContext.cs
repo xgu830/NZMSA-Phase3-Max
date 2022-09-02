@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using GameApi.Model;
+using GameApi.Models;
 
 namespace GameApi.Data
 {
@@ -12,40 +12,40 @@ namespace GameApi.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Leaderboard>()
+            builder.Entity<LeaderboardItem>()
                 .HasData(
-                    new Leaderboard
+                    new LeaderboardItem
                     {
-                        Id = 1,
+                        Id = Guid.NewGuid(),
                         Name = "Ooowl",
                         Score = 2048
                     },
-                    new Leaderboard
+                    new LeaderboardItem
                     {
-                        Id = 2,
+                        Id = Guid.NewGuid(),
                         Name = "CoolGuy",
                         Score = 1024
                     },
-                    new Leaderboard
+                    new LeaderboardItem
                     {
-                        Id = 3,
+                        Id = Guid.NewGuid(),
                         Name = "Toad",
                         Score = 4096
                     },
-                    new Leaderboard
+                    new LeaderboardItem
                     {
-                        Id = 4,
+                        Id = Guid.NewGuid(),
                         Name = "PrincessPeach",
                         Score = 3016
                     },
-                    new Leaderboard
+                    new LeaderboardItem
                     {
-                        Id = 5,
+                        Id = Guid.NewGuid(),
                         Name = "Mario",
                         Score = 1048
                     });
         }
 
-        public DbSet<Leaderboard> Leaderboards { get; set; }
+        public DbSet<LeaderboardItem> Leaderboard { get; set; }
     }
 }

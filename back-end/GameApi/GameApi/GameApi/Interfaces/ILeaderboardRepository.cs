@@ -1,9 +1,8 @@
-﻿using GameApi.Model;
+﻿using GameApi.Models;
 
 namespace GameApi.Interfaces
 {
     public interface ILeaderboardRepository
     {
-        List<Leaderboard> GetLeaderboardAsync();
     }
 }

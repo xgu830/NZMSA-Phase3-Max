@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameApi.Data;
-using GameApi.Model;
+using GameApi.Models;
 
 namespace GameApi.Controllers
 {
@@ -18,9 +18,9 @@ namespace GameApi.Controllers
         }
 
         [HttpGet(Name = "GetLeaderboards")]
-        public async Task<ActionResult<IEnumerable<Leaderboard>>> GetLeaderboards()
+        public async Task<ActionResult<IEnumerable<LeaderboardItem>>> GetLeaderboards()
         {
-            return await _context.Leaderboards.ToListAsync();
+            return await _context.Leaderboard.ToListAsync();
         }
     }
 }
