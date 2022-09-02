@@ -17,7 +17,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  azureSubscription: 'msa-phase3'
+  azureSubscription: 'phase3-backend'
   appName: 'msa-phase3-backapi'
   dockerRegistryServiceConnection: 'a3ac9f42-2578-400e-86cc-084e4f684894'
   imageRepository: 'xgunzmsaphasemax'
@@ -45,8 +45,6 @@ stages:
         azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
         azureContainerRegistry: $(azureContainerRegistry)
         dockerComposeFile: $(dockerComposefilePath)
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
 
     - task: DockerCompose@0
       displayName: Push services
@@ -55,12 +53,10 @@ stages:
         azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
         azureContainerRegistry: $(azureContainerRegistry)
         dockerComposeFile: $(dockerComposefilePath)
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
 
     - task: AzureWebAppContainer@1
       displayName: 'Azure Web App on Container Deploy'
       inputs:
         azureSubscription: $(azureSubscription)
         appName: $(appName)
-        imageName: $(Build.Repository.Name):$(tag)
+        imageName: $(azureContainerRegistry)/$(imageRepository):$(tag)
