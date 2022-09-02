@@ -8,6 +8,6 @@ namespace GameApi.Data
         [UseFiltering]
         [UseSorting]
         public IQueryable<Leaderboard> GetLeaderboards([Service] GameDbContext context) =>
-            context.Leaderboard;
+            context.Leaderboards;
     }
 }

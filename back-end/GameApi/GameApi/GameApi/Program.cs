@@ -19,24 +19,22 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddDbContext<GameDbContext>(context => 
+    context.UseInMemoryDatabase("LeaderBoards"));
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
 builder.Services.AddGraphQLServer().AddQueryType<Query>()
     .AddProjections().AddFiltering().AddSorting();
-
-builder.Services.AddDbContext<GameDbContext>(options =>
-options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

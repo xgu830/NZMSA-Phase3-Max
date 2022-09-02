@@ -14,12 +14,13 @@ namespace GameApi.Controllers
         public LeaderboardsController(GameDbContext context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
         }
 
         [HttpGet(Name = "GetLeaderboards")]
         public async Task<ActionResult<IEnumerable<Leaderboard>>> GetLeaderboards()
         {
-            return await _context.Leaderboard.ToListAsync();
+            return await _context.Leaderboards.ToListAsync();
         }
     }
 }
