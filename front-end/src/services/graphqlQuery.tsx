@@ -12,7 +12,7 @@ interface LeaderBoard {
 
 const GET_LEADERBOARD = gql`
     query getLeaderBoard {
-        leaderboards (where: {score: {gte: 1024}}, order: {score: DESC}) {
+        leaderboard (where: {score: {gte: 1024}}, order: {score: DESC}) {
             id
             name
             score
