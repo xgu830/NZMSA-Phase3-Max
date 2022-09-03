@@ -1,13 +1,13 @@
 import { useQuery, gql } from "@apollo/client";
 
 interface Ranking {
-    id: number,
+    id: string,
     name: string,
     score: number
 }
 
 interface LeaderBoard {
-    leaderboards: Ranking[]
+    leaderboard: Ranking[]
 }
 
 const GET_LEADERBOARD = gql`
@@ -28,10 +28,9 @@ export const DisplayLeaderBoard = () => {
     return <div className="leaderboard"> 
         <h5>Leaderboard</h5>
         <ol>
-            {data && data.leaderboards.map(list => (
+            {data && data.leaderboard.map(list => (
                 <li key={list.id}>{list.name}: {list.score}</li>
             ))}
         </ol>
     </div> 
-    
 }
