@@ -24,6 +24,7 @@ export interface mutationProp {
 
 export const NewLeaderboard = ({newScore}: mutationProp) => {
     const [username, setUsername] = useState('');
+    const [disable, setDisable] = useState(false);
 
     const [addLeaderboardItem, { error, data }] = useMutation<
         {addLeaderboardItem:NewLeaderboardItem}
@@ -31,11 +32,19 @@ export const NewLeaderboard = ({newScore}: mutationProp) => {
         variables: {newItem: {name: username, score: newScore}}}
     );
 
+    function saveButton() {
+        if (username) {
+            addLeaderboardItem();
+        }
+        setDisable(true);
+    }
+
     return (
         <div>
             <label>Username: </label>
             <input type="string" name="username" onChange={e => setUsername(e.target.value)} />
-            <button onClick={() => username && addLeaderboardItem()}>Save your record</button>
+            <button disabled={disable} 
+                onClick={() => saveButton()}>Save your record</button>
 
             {error ? <p>{ error.message }</p> : null}
             {data && data.addLeaderboardItem ? <DisplayLeaderBoard /> : null}

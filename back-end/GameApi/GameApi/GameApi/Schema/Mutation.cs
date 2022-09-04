@@ -10,6 +10,7 @@ namespace GameApi.Schema
         public Mutation(GameDbContext context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
         }
 
         public async Task<AddNewItemPayload> AddLeaderboardItemAsync(NewLeaderboardItem newItem,
