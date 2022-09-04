@@ -14,7 +14,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowedSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://msa-phase3-frontend.azurewebsites.net").AllowAnyHeader();
+            policy.WithOrigins("http://localhost:3000",
+                "https://msa-phase3-frontend.azurewebsites.net").AllowAnyHeader().AllowAnyMethod();
         });
 });
 

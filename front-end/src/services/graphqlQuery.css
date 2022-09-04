@@ -1,0 +1,9 @@
+.leaderboardItem {
+    animation-name: pop;
+    animation-duration: 4s;
+}
+
+@keyframes pop {
+    from {opacity: 0%}
+    to {opacity: 100%}
+}

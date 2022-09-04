@@ -1,20 +1,17 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { DisplayLeaderBoard } from './graphqlQuery';
 
-const ADD_ITEM = gql `
-    mutation updateBoard{
-        addLeaderboardItem(newItem: {
-            name: "abc"
-            score: 123
-            })
-            {
-            newItem {
+const ADD_ITEM = gql`
+    mutation addLeaderboardItem($newItem: NewLeaderboardItemInput!) {
+        addLeaderboardItem(newItem: $newItem) {
+            newItem{
                 name
                 score
             }
         }
     }
-`
+`;
 
 interface NewLeaderboardItem {
     name: string;
@@ -22,24 +19,26 @@ interface NewLeaderboardItem {
 }
 
 export interface mutationProp {
-    gameScore: number
+    newScore: number
 }
 
-export const NewLeaderboard = ({gameScore}: mutationProp) => {
-    const [name, setName] = useState('');
-    const score = gameScore;
+export const NewLeaderboard = ({newScore}: mutationProp) => {
+    const [username, setUsername] = useState('');
 
-    const [updateBoard, { error, data}] = useMutation<{newItem: NewLeaderboardItem}>(
-        ADD_ITEM, {variables: {newItem: {name: name, score}}}
+    const [addLeaderboardItem, { error, data }] = useMutation<
+        {addLeaderboardItem:NewLeaderboardItem}
+        >(ADD_ITEM, {
+        variables: {newItem: {name: username, score: newScore}}}
     );
 
     return (
-        <div className="updateBoard">
-            {error ? <p>{error.message}</p> : null}
-            {data && data.newItem ? <p>Record saved!</p> : null}
+        <div>
+            <label>Username: </label>
+            <input type="string" name="username" onChange={e => setUsername(e.target.value)} />
+            <button onClick={() => username && addLeaderboardItem()}>Save your record</button>
 
-            <input type="string" name="name" onChange={e => setName(e.target.value)} />
-            <button onClick={() => data && updateBoard()}>Save your record</button>
+            {error ? <p>{ error.message }</p> : null}
+            {data && data.addLeaderboardItem ? <DisplayLeaderBoard /> : null}
         </div>
     )
 }

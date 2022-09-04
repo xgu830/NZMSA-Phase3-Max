@@ -1,4 +1,5 @@
 import { Fragment, useEffect } from "react";
+import { NewLeaderboard } from "../services/graphqlMutation";
 import { DisplayLeaderBoard } from "../services/graphqlQuery";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectState, selectScore,selectIsOver, startGame, moveLeft, moveRight, moveUp, moveDown } from "../store/slices/gameSlice";
@@ -36,13 +37,16 @@ const LogicGameGrid = ({width, height}: LogicGameGridProps): JSX.Element => {
     },[dispatch]);
 
     return <Fragment>
-        {gameIsOver ? <DisplayLeaderBoard />
+        {gameIsOver ?
+            gameScore > 200 ?
+                <NewLeaderboard newScore={gameScore} /> : <DisplayLeaderBoard />
             :
-            <div>
-                <h5>Score: {gameScore}</h5>
-                <GameGrid width={width} height={height} gameState={gameState} />
-            </div>
+            null
         }
+        <div>
+            <h5>Score: {gameScore}</h5>
+            <GameGrid width={width} height={height} gameState={gameState} />
+        </div>
     </Fragment>
 }
 

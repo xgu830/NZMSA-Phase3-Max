@@ -16,7 +16,7 @@ const GameGridRow = ({width, height, tiles}: GameGridRowProp) => {
 
         for (let i = 0; i < width; i++) {
             tileArray.push(<Grid item 
-                key={`GridTile${height} ${i}`} md={tileWidth} 
+                key={`GridTile${height} ${i}`} sm={tileWidth} 
                 justifyContent={"space-evenly"} alignItems={"stretch"}>
                 <Tile currentValue={tiles[i].value} />
             </Grid>);
@@ -26,7 +26,7 @@ const GameGridRow = ({width, height, tiles}: GameGridRowProp) => {
     }
 
     return <Grid container item 
-        spacing={2} justifyContent={"space-evenly"} alignContent={"space-evenly"} md={12}>
+        spacing={2} justifyContent={"space-evenly"} alignContent={"space-evenly"} sm={12}>
             {drawTiles().map(tile => tile)}
         </Grid>
 }
