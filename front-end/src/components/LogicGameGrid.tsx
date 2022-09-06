@@ -38,7 +38,7 @@ const LogicGameGrid = ({width, height}: LogicGameGridProps): JSX.Element => {
 
     return <Fragment>
         {gameIsOver ?
-            gameScore > 200 ?
+            gameScore > 600 ?
                 <NewLeaderboard newScore={gameScore} /> : <DisplayLeaderBoard />
             :
             null
