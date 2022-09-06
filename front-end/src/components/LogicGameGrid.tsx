@@ -43,8 +43,8 @@ const LogicGameGrid = ({width, height}: LogicGameGridProps): JSX.Element => {
             :
             null
         }
-        <div>
-            <h5>Score: {gameScore}</h5>
+        <div role="gameDiv">
+            <h5 role="score">Score: {gameScore}</h5>
             <GameGrid width={width} height={height} gameState={gameState} />
         </div>
     </Fragment>
