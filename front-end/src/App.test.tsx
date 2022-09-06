@@ -12,16 +12,16 @@ test('display GameGrid', () => {
     </Provider>);
 
   const mockMath = Object.create(global.Math);
-  mockMath.random = () => 0.4;
+  mockMath.random = () => 0.9;
   global.Math = mockMath;
 
   const gameDiv = screen.getByRole("gameDiv");
-  let score = screen.getByRole("score");
-  let tile = screen.getAllByRole("tile");
+  const score = screen.getByRole("score");
+  const tile = screen.getAllByRole("tile");
   expect(score).toHaveTextContent("Score: 0");
   expect(tile).toHaveLength(2);
 
   fireEvent.keyDown(gameDiv, {key:"ArrowLeft", keyCode:37});
   fireEvent.keyUp(gameDiv, {key:"ArrowLeft", keyCode:37});
-  expect(score).toHaveTextContent("Score: 6");
+  expect(score).toHaveTextContent("Score: 8");
 });
